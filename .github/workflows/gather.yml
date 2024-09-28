@@ -18,7 +18,6 @@ jobs:
         sudo gem env
       shell: bash    
     - name: Checkout
-      if: ${{ inputs.do-checkout }}
       uses: actions/checkout@v4
     - name: Set up Python 3.10
       uses: actions/setup-python@v5
