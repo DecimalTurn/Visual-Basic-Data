@@ -26,7 +26,8 @@ jobs:
         python-version: "3.10"
     - name: Run script
       run: |
-        python '${{ github.action_path }}/run.py'
+        pip install ghlinguist
+        python run.py 
       shell: bash
     - name: Push content
       run: |

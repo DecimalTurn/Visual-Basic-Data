@@ -2,6 +2,8 @@ import os
 import argparse
 import sys
 import subprocess
+import ghlinguist as ghl
+
 
 def main():
 
@@ -39,8 +41,11 @@ def clone_repo(clone_url):
 
 def run_linguist(repo_name):
     # Run the Linguist tool on the repo
-    subprocess.run(["linguist", repo_name])
+    # subprocess.run(["linguist", repo_name])
 
+    #Use ghlinguist to run linguist on the repo
+    return ghl.linguist(repo_name)
+    
 def search_github_repos(query, sort='updated', order='asc', per_page=10, page=1):
     url = f"https://api.github.com/search/repositories"
     headers = {'Accept': 'application/vnd.github.v3+json'}
