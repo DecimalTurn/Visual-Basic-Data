@@ -26,6 +26,7 @@ jobs:
     - name: Run script
       run: |
         pip install ghlinguist
+        pip install requests
         pwd
         ls
         python run.py 
