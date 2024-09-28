@@ -28,7 +28,7 @@ jobs:
         pip install ghlinguist
         pwd
         ls
-        python /.github/workflows/run.py 
+        python run.py 
       shell: bash
     - name: Push content
       run: |
