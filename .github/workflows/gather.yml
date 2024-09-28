@@ -1,5 +1,7 @@
 name: Gather-Data
 description: 'Gather Data.'
+on:
+  workflow_dispatch:
 runs:
   using: "composite"
   steps:
