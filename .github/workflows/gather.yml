@@ -27,7 +27,7 @@ jobs:
     - name: Run script
       run: |
         pip install ghlinguist
-        python run.py 
+        python /.github/workflows/run.py 
       shell: bash
     - name: Push content
       run: |
