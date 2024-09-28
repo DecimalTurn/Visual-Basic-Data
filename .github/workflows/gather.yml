@@ -3,7 +3,6 @@ description: 'Gather Data.'
 on:
   workflow_dispatch:
 runs:
-  using: "composite"
   steps:
   - name: Configure Git
     run: |
