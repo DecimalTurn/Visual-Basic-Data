@@ -124,8 +124,10 @@ def create_repo_list(start_date, end_date):
 
                         if latest_commit_date is None:
                             latest_commit_date = "Unknown (repo deleted or no commits)"
-
-                        lang = get_language(slug)
+                        
+                        lang = None
+                        if latest_commit_date != "Unknown (repo deleted or no commits)":
+                            lang = "N/A"
 
                         if lang is None:
                             print(f"Failed to determine the language of repo {slug}")
@@ -163,7 +165,7 @@ def create_repo_list(start_date, end_date):
         current_date = current_date_dt.strftime("%Y-%m-%d")
     
     if problem_encountered:
-        print("Problem encountered. Well have to resume at the current date")
+        print("Problem encountered. We'll have to resume at the current date")
         return current_date_dt.strftime("%Y-%m-%d")
     
     # Move on to the next day (for the next run)
