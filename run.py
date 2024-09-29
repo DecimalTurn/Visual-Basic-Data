@@ -100,12 +100,18 @@ def create_repo_list(start_date, end_date):
         while True:
             repos = search_github_repos(f"lang:vbnet pushed:{current_date}", sort="updated", order="asc", per_page=100, page=page)
 
-            #Debuggin: Write the response to a file by converting it to a json string
+            #Debugging: Write the response to a file by converting it to a json string
             # with open('repos.json', 'a') as f:
                 # json_str = json.dumps(repos, indent=4)
                 # f.write(json_str)
        
-            if repos is None or not repos['items']:
+            if repos is None
+                print("Failed to fetch repos")
+                problem_encountered = True
+                break
+
+            if not repos['items']:
+                print(f"No more repos for this date: {current_date}")
                 break
 
             if page > 10:
@@ -391,6 +397,7 @@ def search_github_repos(query, sort='updated', order='asc', per_page=10, page=1)
     else:
         print(f"Failed to fetch data from GitHub API. Status code: {response.status_code}")
         print(f"Url: {url}")
+        print(f"Page: {page}")
         print(response.json())
         return None
 
