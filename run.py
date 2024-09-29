@@ -176,7 +176,7 @@ def create_repo_list(start_date, end_date):
         return current_date_dt.strftime("%Y-%m-%d")
     
     # Move on to the next day (for the next run)
-    current_date_dt -= timedelta(days=1)
+    # Since the loop decrements the date, we don't need to decrement it further
     return current_date_dt.strftime("%Y-%m-%d")
         
 
