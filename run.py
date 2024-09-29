@@ -105,7 +105,7 @@ def create_repo_list(start_date, end_date):
                 # json_str = json.dumps(repos, indent=4)
                 # f.write(json_str)
        
-            if repos is None
+            if repos is None:
                 print("Failed to fetch repos")
                 problem_encountered = True
                 break
