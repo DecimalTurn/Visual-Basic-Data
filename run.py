@@ -121,22 +121,24 @@ def create_repo_list(start_date, end_date):
                         latest_commit_date = get_latest_commit_date(slug)
 
                         if latest_commit_date is None:
-                            print(f"Skipping repo {slug} because it has no commits")
-                            continue
+                            latest_commit_date = "Unknown (repo deleted or no commits)"
 
                         # Each line has 5 columns. Create an empty array of 5 elements
                         line = [""] * 5
                         line[0] = slug
                         line[1] = latest_commit_date
-                        line[2] = get_language(slug)
-                        line[3] = linguist_version
-                        line[4] = date_now
+                        if latest_commit_date != "Unknown (repo deleted or no commits)":
+                            line[2] = get_language(slug)
+                            line[3] = linguist_version
+                            line[4] = date_now
 
                         # Join the line back together, replacing None with an empty string
                         new_line = ",".join("" if item is None else str(item) for item in line) 
                         if new_line[-1] != "\n":
                             new_line += "\n"
                         f.write(new_line)
+                    else:
+                        print(f"Repo {slug} already analyzed")
 
             page += 1
 
@@ -313,9 +315,14 @@ def run_linguist(repo_name):
     return ghl.linguist(full_path, True)
     
 def search_github_repos(query, sort='updated', order='asc', per_page=10, page=1):
+    token = os.getenv('GITHUB_TOKEN')
     url = f"https://api.github.com/search/repositories"
-    headers = {'Accept': 'application/vnd.github.v3+json'}
+    headers = {
+        'Accept': 'application/vnd.github.v3+json',
+        'Authorization': f'token {token}'
+        }
     params = {
+        
         'q': query,
         'sort': sort,
         'order': order,
@@ -346,8 +353,14 @@ def get_latest_commit_date(repo_slug):
     Returns:
     str: The latest commit date in ISO 8601 format, or 'Unknown' if the request fails.
     """
+    token = os.getenv('GITHUB_TOKEN')
     url = f"https://api.github.com/repos/{repo_slug}/commits"
-    response = requests.get(url)
+
+    headers = {
+        'Accept': 'application/vnd.github.v3+json',
+        'Authorization': f'token {token}'
+        }
+    response = requests.get(url, headers=headers)
     if response.status_code == 200:
         latest_commit_date = response.json()[0]['commit']['author']['date']
         return latest_commit_date
@@ -361,7 +374,7 @@ def get_latest_commit_date(repo_slug):
         exit(1)
 
 if __name__ == "__main__":
-    create_repo_list("2019-12-01", "2019-12-01")
+    create_repo_list("2019-12-01", "2019-12-07")
     #fill_missing_data_in_csv1()
     #fill_missing_data_in_csv2()
     #main()
