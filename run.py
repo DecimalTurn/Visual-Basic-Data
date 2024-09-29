@@ -424,8 +424,9 @@ def get_latest_commit_date(repo_slug):
         exit(1)
 
 if __name__ == "__main__":
-    
-    span = 1
+
+    # Span days to look at (0 means only one day)
+    span = 0
 
     # Read the start date from date.txt
     start_date = ""
