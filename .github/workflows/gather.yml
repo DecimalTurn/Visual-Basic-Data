@@ -26,7 +26,11 @@ jobs:
     - name: Run script
       run: |
         pip install ghlinguist
-        pip install requests
+        git clone https://github.com/DecimalTurn/linguist-python.git
+        cd linguist-python
+        # Make your code changes here
+        pip install .
+        cd ..
         pwd
         ls
         python run.py 
