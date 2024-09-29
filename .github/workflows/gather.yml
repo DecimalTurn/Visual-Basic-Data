@@ -3,6 +3,9 @@ name: Gather-Data
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   gather-data:
     runs-on: ubuntu-latest
