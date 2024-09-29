@@ -282,6 +282,8 @@ def clone_repo_from_slug(slug):
 
     # Check if we are in the repos directory
     if os.path.basename(os.getcwd()) != "repos":
+        if not os.path.exists("repos"):
+            os.makedirs("repos")
         os.chdir("repos")
 
     #Create a directory with the name of the author
