@@ -397,7 +397,7 @@ if __name__ == "__main__":
 
     #Update the date in date.txt
     with open('date.txt', 'w') as file:
-        file.write(start_date_dt - timedelta(days=1).strftime("%Y-%m-%d")
+        file.write(start_date_dt - timedelta(days=1).strftime("%Y-%m-%d"))
 
     #fill_missing_data_in_csv1()
     #fill_missing_data_in_csv2()
