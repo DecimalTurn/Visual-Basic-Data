@@ -128,6 +128,9 @@ def create_repo_list(start_date, end_date):
                         lang = None
                         if latest_commit_date == "Unknown (repo deleted or no commits)":
                             lang = "N/A"
+                        else:
+                            lang = get_language(slug)
+
 
                         if lang is None:
                             print(f"Failed to determine the language of repo {slug}")
