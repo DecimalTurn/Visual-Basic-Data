@@ -381,7 +381,24 @@ def get_latest_commit_date(repo_slug):
         exit(1)
 
 if __name__ == "__main__":
-    create_repo_list("2019-12-01", "2019-12-02")
+    
+    span = 1
+
+    #Read the date from date.txt
+    end_date =""
+    with open('date.txt') as file:
+        end_date = file.readline().strip()
+
+    end_date_dt = datetime.strptime(end_date, "%Y-%m-%d")
+    start_date_dt = end_date_dt - timedelta(days=span)
+    start_date = start_date_dt.strftime("%Y-%m-%d")
+
+    create_repo_list(start_date, end_date)
+
+    #Update the date in date.txt
+    with open('date.txt', 'w') as file:
+        file.write(start_date_dt - timedelta(days=1).strftime("%Y-%m-%d")
+
     #fill_missing_data_in_csv1()
     #fill_missing_data_in_csv2()
     #main()
