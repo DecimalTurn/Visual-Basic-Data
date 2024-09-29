@@ -381,7 +381,7 @@ def get_latest_commit_date(repo_slug):
         exit(1)
 
 if __name__ == "__main__":
-    create_repo_list("2019-12-01", "2019-12-07")
+    create_repo_list("2019-12-01", "2019-12-02")
     #fill_missing_data_in_csv1()
     #fill_missing_data_in_csv2()
     #main()

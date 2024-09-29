@@ -42,6 +42,9 @@ jobs:
         git config user.name "github-actions[bot]"
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       
+        # Run git add data/2019.csv but don't fail if there are no changes
+        git add data/2019.csv || echo "---"
+
         git status
         if [ -n "$(git diff --cached --exit-code)" ]; then
           echo "Changes detected"
