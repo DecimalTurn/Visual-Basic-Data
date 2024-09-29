@@ -26,7 +26,7 @@ jobs:
     - name: Run script
       run: |
         pip install ghlinguist
-        git clone https://github.com/DecimalTurn/linguist-python.git
+        git clone https://github.com/DecimalTurn/linguist-python.git --depth 1
         cd linguist-python
         # Make your code changes here
         pip install .
@@ -37,8 +37,8 @@ jobs:
       shell: bash
     - name: Push content
       run: |
-        git config user.name "${{ inputs.bot-name }}"
-        git config user.email "${{ inputs.bot-email }}"
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       
         git status
         if [ -n "$(git diff --cached --exit-code)" ]; then
