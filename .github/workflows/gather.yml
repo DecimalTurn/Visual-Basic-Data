@@ -48,6 +48,7 @@ jobs:
         # Run git add data/2019.csv but don't fail if there are no changes
         git add data/2019.csv || echo "---"
         git add date.txt || echo "---"
+        git add disable.txt || echo "---"
 
         git status
         if [ -n "$(git diff --cached --exit-code)" ]; then
