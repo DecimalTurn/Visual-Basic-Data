@@ -33,8 +33,10 @@ jobs:
         cd ..
         pwd
         ls
-        python run.py 
+        python run.py
       shell: bash
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Push content
       run: |
         git config user.name "github-actions[bot]"
