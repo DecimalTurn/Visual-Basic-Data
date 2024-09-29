@@ -137,7 +137,7 @@ def create_repo_list(start_date, end_date):
                         line[0] = slug
                         line[1] = latest_commit_date
                         if latest_commit_date != "Unknown (repo deleted or no commits)":
-                            line[2] = 
+                            line[2] = lang
                             line[3] = linguist_version
                             line[4] = date_now
 
