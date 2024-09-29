@@ -427,7 +427,7 @@ if __name__ == "__main__":
     end_date_dt = start_date_dt - timedelta(days=span)
     end_date = end_date_dt.strftime("%Y-%m-%d")
 
-    current_date = create_repo_list(end_date, start_date)
+    current_date = create_repo_list(start_date, end_date)
 
     # Update the date in date.txt
     with open('date.txt', 'w') as file:
