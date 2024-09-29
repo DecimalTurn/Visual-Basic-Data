@@ -8,6 +8,8 @@ import requests
 from datetime import datetime, timedelta
 import requests
 
+
+new_data = False
 counter_limit = 15
 
 def main():
@@ -151,6 +153,8 @@ def create_repo_list(start_date, end_date):
                         if new_line[-1] != "\n":
                             new_line += "\n"
                         f.write(new_line)
+                        new_data = True
+
                     else:
                         print(f"Repo {slug} already analyzed")
 
@@ -432,9 +436,18 @@ if __name__ == "__main__":
     end_date_dt = start_date_dt - timedelta(days=span)
     end_date = end_date_dt.strftime("%Y-%m-%d")
 
-    current_date = create_repo_list(start_date, end_date)
+    next_start_date = create_repo_list(start_date, end_date)
 
-    # Update the date in date.txt
-    with open('date.txt', 'w') as file:
-        file.write(current_date)
+    if next_start_date != start_date:
+        # Update the date in date.txt
+        with open('date.txt', 'w') as file:
+            print(f"Updating the next start date to {next_start_date}")
+            file.write(next_start_date)
+    elif new_data == False:
+        print("No new data was added. Exiting")
+        exit(1)
+    else:
+        print("New data was added, but we didn't complete to process all the data for that day. Exiting")
+        exit(0)
+
     
