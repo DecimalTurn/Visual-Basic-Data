@@ -317,6 +317,12 @@ def run_linguist(repo_name):
     
 def search_github_repos(query, sort='updated', order='asc', per_page=10, page=1):
     token = os.getenv('GITHUB_TOKEN')
+
+    if not token:
+        print("GITHUB_TOKEN is not set")
+    else:
+        print(f"GITHUB_TOKEN is set: {token[:4]}...")
+
     url = f"https://api.github.com/search/repositories"
     headers = {
         'Accept': 'application/vnd.github.v3+json',
