@@ -6,6 +6,7 @@ import subprocess
 import ghlinguist as ghl
 import requests
 from datetime import datetime, timedelta
+import requests
 
 counter_limit = 15
 
@@ -340,8 +341,6 @@ def search_github_repos(query, sort='updated', order='asc', per_page=10, page=1)
         print(response.text)
         print(response.json())
         return None
-
-import requests
 
 def get_latest_commit_date(repo_slug):
     """
