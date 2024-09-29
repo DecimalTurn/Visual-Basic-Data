@@ -423,7 +423,42 @@ def get_latest_commit_date(repo_slug):
         print(response.json())
         exit(1)
 
+def create_github_issue(slug, title, body, labels=None):
+
+    token = os.getenv('GITHUB_TOKEN')
+
+    url = f"https://api.github.com/repos/{slug}/issues"
+    headers = {
+        'Accept': 'application/vnd.github.v3+json',
+        'Authorization': f'token {token}'
+    }
+    data = {
+        'title': title,
+        'body': body,
+        'labels': labels if labels else []  # Use the provided labels or an empty list if none are given
+    }
+    
+    print(f"URL: {url}")
+    print(f"Headers: {headers}")
+    print(f"Data: {data}")
+
+    response = requests.post(url, headers=headers, json=data)
+    
+    if response.status_code == 201:
+        print(f"🟢 Issue created successfully: {response.json()['html_url']}")
+        return response.json()['number']
+    else:
+        print(f"🔴 Failed to create issue. Status code: {response.status_code}")
+        print(response.json())
+
 if __name__ == "__main__":
+
+    # If the disable.txt file exists and contains the word "True", exit the program
+    if os.path.exists("disable.txt"):
+        with open('disable.txt') as file:
+            if file.readline().strip() == "True":
+                print("The program is disabled. Exiting")
+                exit(0)
 
     # Span days to look at (0 means only one day)
     span = 0
@@ -446,6 +481,12 @@ if __name__ == "__main__":
             file.write(next_start_date)
     elif new_data == False:
         print("No new data was added. Exiting")
+        create_github_issue(os.getenv('GITHUB_REPOSITORY'), "Issue with the data collection", "No new data was added", ["bug"])
+
+        # Change the value stored in disable.txt to True
+        with open('disable.txt', 'w') as file:
+            file.write("True")
+
         exit(1)
     else:
         print("New data was added, but we didn't complete to process all the data for that day. Exiting")
