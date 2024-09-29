@@ -82,8 +82,9 @@ def create_repo_list(start_date, end_date):
     end_date_dt = datetime.strptime(end_date, "%Y-%m-%d")
     current_date_dt = start_date_dt
 
+    problem_encountered = False
     counter = 0
-    while current_date_dt <= end_date_dt:
+    while current_date_dt >= end_date_dt:
         
         print(f"Fetching repos for date: {current_date}")
 
@@ -97,10 +98,10 @@ def create_repo_list(start_date, end_date):
         while True:
             repos = search_github_repos(f"lang:vbnet pushed:{current_date}", sort="updated", order="asc", per_page=100, page=page)
 
-            # Write the response to a file by converting it to a json string
-            with open('repos.json', 'a') as f:
-                json_str = json.dumps(repos, indent=4)
-                f.write(json_str)
+            #Debuggin: Write the response to a file by converting it to a json string
+            # with open('repos.json', 'a') as f:
+                # json_str = json.dumps(repos, indent=4)
+                # f.write(json_str)
        
             if repos is None or not repos['items']:
                 break
@@ -124,12 +125,19 @@ def create_repo_list(start_date, end_date):
                         if latest_commit_date is None:
                             latest_commit_date = "Unknown (repo deleted or no commits)"
 
+                        lang = get_language(slug)
+
+                        if lang is None:
+                            print(f"Failed to determine the language of repo {slug}")
+                            problem_encountered = True
+                            break
+
                         # Each line has 5 columns. Create an empty array of 5 elements
                         line = [""] * 5
                         line[0] = slug
                         line[1] = latest_commit_date
                         if latest_commit_date != "Unknown (repo deleted or no commits)":
-                            line[2] = get_language(slug)
+                            line[2] = 
                             line[3] = linguist_version
                             line[4] = date_now
 
@@ -141,11 +149,27 @@ def create_repo_list(start_date, end_date):
                     else:
                         print(f"Repo {slug} already analyzed")
 
+            if problem_encountered:
+                # Break out of the searching loop for that day
+                break
+            
             page += 1
 
+        if problem_encountered:
+            break
+
         # Increment the date by one day
-        current_date_dt += timedelta(days=1)
+        current_date_dt -= timedelta(days=1)
         current_date = current_date_dt.strftime("%Y-%m-%d")
+    
+    if problem_encountered:
+        print("Problem encountered. Well have to resume at the current date")
+        return current_date_dt.strftime("%Y-%m-%d")
+    
+    # Move on to the next day (for the next run)
+    current_date_dt -= timedelta(days=1)
+    return current_date_dt.strftime("%Y-%m-%d")
+        
 
 def get_year(date):
     return date.split('-')[0]
@@ -172,9 +196,9 @@ def fill_missing_data_in_csv1():
             # Run Linguist on the repo
             print(f"Running Linguist on {repo.split(',')[0]}")
 
-            #Check if the repo is already cloned
+            # Check if the repo is already cloned
             if not os.path.exists("repos/"+repo.split(',')[0]):
-                clone_repo_from_slug(repo.split(',')[0])
+                cloning_status = clone_repo_from_slug(repo.split(',')[0])
 
             linguist_output = run_linguist("repos/"+repo.split(',')[0])
 
@@ -207,7 +231,10 @@ def fill_missing_data_in_csv1():
 def get_language(slug):
     #Check if the repo is already cloned
     if not os.path.exists("repos/"+slug):
-        clone_repo_from_slug(slug)
+        cloning_status = clone_repo_from_slug(slug)
+
+        if cloning_status == "Failed":
+            return None
 
     return run_linguist("repos/"+slug)
 
@@ -293,15 +320,24 @@ def clone_repo_from_slug(slug):
         os.makedirs(author)
     os.chdir(author)
     
+    status = ""
+
     # Clone the repo if it doesn't exist
     if not os.path.exists(repo_name):
-        subprocess.run(["git", "clone", "--depth", "1", slug_to_url(slug)])
+        try:
+            subprocess.run(["git", "clone", "--depth", "1", slug_to_url(slug)])
+            status = "Success"
+        except:
+            print(f"Failed to clone repo {slug}")
+            status = "Failed"
 
     # Go back to the parent directory (repos)
     os.chdir("..")
 
     # Go back to the parent directory (main directory)
     os.chdir("..")
+
+    return status
 
 def url_to_slug(url):
     return url.split('/')[3]+"/"+ url.split('/')[4].split('.')[0]
@@ -320,10 +356,10 @@ def run_linguist(repo_name):
 def search_github_repos(query, sort='updated', order='asc', per_page=10, page=1):
     token = os.getenv('GITHUB_TOKEN')
 
-    if not token:
-        print("GITHUB_TOKEN is not set")
-    else:
-        print(f"GITHUB_TOKEN is set: {token[:4]}...")
+    # if not token:
+    #     print("GITHUB_TOKEN is not set")
+    # else:
+    #     print(f"GITHUB_TOKEN is set: {token[:4]}...")
 
     url = f"https://api.github.com/search/repositories"
     headers = {
@@ -345,8 +381,7 @@ def search_github_repos(query, sort='updated', order='asc', per_page=10, page=1)
         return response.json()
     else:
         print(f"Failed to fetch data from GitHub API. Status code: {response.status_code}")
-        print(response)
-        print(response.text)
+        print(f"Url: {url}")
         print(response.json())
         return None
 
@@ -376,7 +411,6 @@ def get_latest_commit_date(repo_slug):
         return None
     else:
         print(f"Failed to get the latest commit date for {repo_slug}")
-        print(response)
         print(response.json())
         exit(1)
 
@@ -384,22 +418,18 @@ if __name__ == "__main__":
     
     span = 1
 
-    #Read the date from date.txt
-    end_date =""
+    # Read the start date from date.txt
+    start_date = ""
     with open('date.txt') as file:
-        end_date = file.readline().strip()
+        start_date = file.readline().strip()
 
-    end_date_dt = datetime.strptime(end_date, "%Y-%m-%d")
-    start_date_dt = end_date_dt - timedelta(days=span)
-    start_date = start_date_dt.strftime("%Y-%m-%d")
+    start_date_dt = datetime.strptime(start_date, "%Y-%m-%d")
+    end_date_dt = start_date_dt - timedelta(days=span)
+    end_date = end_date_dt.strftime("%Y-%m-%d")
 
-    create_repo_list(start_date, end_date)
+    current_date = create_repo_list(end_date, start_date)
 
-    #Update the date in date.txt
+    # Update the date in date.txt
     with open('date.txt', 'w') as file:
-        file.write(start_date_dt - timedelta(days=1).strftime("%Y-%m-%d"))
-
-    #fill_missing_data_in_csv1()
-    #fill_missing_data_in_csv2()
-    #main()
+        file.write(current_date)
     
