@@ -126,7 +126,7 @@ def create_repo_list(start_date, end_date):
                             latest_commit_date = "Unknown (repo deleted or no commits)"
                         
                         lang = None
-                        if latest_commit_date != "Unknown (repo deleted or no commits)":
+                        if latest_commit_date == "Unknown (repo deleted or no commits)":
                             lang = "N/A"
 
                         if lang is None:
