@@ -321,8 +321,7 @@ if __name__ == "__main__":
         # Change the value stored in disable.txt to True
         with open('disable.txt', 'w') as file:
             file.write("True")
-
-        exit(1)
+        exit(0)
     else:
         print("New data was added, but we didn't process all the data for that day. Exiting")
         exit(0)
