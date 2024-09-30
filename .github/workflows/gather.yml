@@ -47,7 +47,7 @@ jobs:
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       
         # Run git add data/2019.csv but don't fail if there are no changes
-        git add data/2019.csv || echo "---"
+        git add data/ || echo "---"
         git add date.txt || echo "---"
         git add disable.txt || echo "---"
 
