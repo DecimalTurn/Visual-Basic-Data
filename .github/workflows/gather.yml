@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: write
-  issue: write
+  issues: write
 
 jobs:
   gather-data:
