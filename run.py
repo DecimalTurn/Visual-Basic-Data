@@ -88,11 +88,12 @@ def create_repo_list(start_date, end_date):
                             print(f"Analyzing {slug}")
                             lang = get_language(slug)
 
-
                         if lang is None:
                             print(f"Failed to determine the language of repo {slug}")
                             problem_encountered = True
                             break
+                            
+                        print(f"    Output: {lang}")
 
                         # Each line has 5 columns. Create an empty array of 5 elements
                         line = [""] * 5
