@@ -116,6 +116,10 @@ def create_repo_list(start_date, end_date):
             if problem_encountered:
                 # Break out of the searching loop for that day
                 break
+
+            if len(repos['items']) < 100:
+                print(f"No more repos for this date: {current_date}")
+                break
             
             page += 1
 
