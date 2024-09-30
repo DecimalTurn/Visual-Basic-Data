@@ -35,7 +35,8 @@ jobs:
         # echo 'export PATH=$PWD/vendor/bundle/ruby/3.3.0/bin:$PATH' >> $GITHUB_ENV
         echo 'export PATH=$PWD/vendor/bundle/ruby/3.3.0/bin:$PATH'
         echo $PATH
-        github-linguist --version
+        # github-linguist --version
+        bundle exec github-linguist --version
       shell: bash
       
 #    - name: Install Linguist
