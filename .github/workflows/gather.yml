@@ -43,8 +43,8 @@ jobs:
       
     - name: Install Linguist
       run: |
-        sudo gem install github-linguist
-        sudo gem env
+        gem install github-linguist
+        gem env
         gem which github-linguist
       shell: bash
 
