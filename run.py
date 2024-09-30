@@ -13,7 +13,8 @@ new_data = False
 counter_limit = 15
 
 def create_repo_list(start_date, end_date):
-
+    
+    global new_data
     repos_content = ""
 
     current_date = start_date
@@ -323,7 +324,7 @@ if __name__ == "__main__":
 
         exit(1)
     else:
-        print("New data was added, but we didn't complete to process all the data for that day. Exiting")
+        print("New data was added, but we didn't process all the data for that day. Exiting")
         exit(0)
 
     
