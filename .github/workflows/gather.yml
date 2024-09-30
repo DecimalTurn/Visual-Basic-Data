@@ -13,18 +13,38 @@ jobs:
   gather-data:
     runs-on: ubuntu-latest
     steps:
+    
     - name: Configure Git
       run: |
         git config --global core.autocrlf false
         git config --global core.eol lf
       shell: bash
-    - name: Install Linguist
+      
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.4' # Specify the Ruby version you need
+
+    - name: Cache Ruby gems
+      id: cache-gems
+      uses: actions/cache@v3
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gem-
+
+    - name: Install dependencies
       run: |
-        sudo gem install github-linguist
-        sudo gem env
-      shell: bash    
+        gem install bundler
+        bundle install --path vendor/bundle
+
+    - name: Install linguist
+      run: gem install linguist
+    
     - name: Checkout
       uses: actions/checkout@v4
+      
     - name: Set up Python 3.10
       uses: actions/setup-python@v5
       with:
