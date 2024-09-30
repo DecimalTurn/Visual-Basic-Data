@@ -32,7 +32,7 @@ jobs:
 
     - name: Update PATH for bundled gems
       run: |
-        echo 'export PATH=$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH' >> $GITHUB_ENV
+        echo 'export PATH=$PWD/vendor/bundle/ruby/3.3.0/bin:$PATH' >> $GITHUB_ENV
       shell: bash
 
     - name: Check Linguist
