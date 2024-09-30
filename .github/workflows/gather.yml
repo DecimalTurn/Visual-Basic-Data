@@ -29,7 +29,12 @@ jobs:
         ruby-version: 3.3
         # runs 'bundle install' and caches installed gems automatically
         bundler-cache: true
-    
+
+    - name: Install Linguist
+      run: |
+        bundle exec linguist --version
+      shell: bash
+      
 #    - name: Install Linguist
 #      run: |
 #        sudo gem install github-linguist
