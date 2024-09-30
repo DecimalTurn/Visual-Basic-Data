@@ -45,6 +45,7 @@ jobs:
       run: |
         sudo gem install github-linguist
         sudo gem env
+        ls /root/.local/share/gem/ruby/3.0.0
       shell: bash
 
       
