@@ -30,9 +30,14 @@ jobs:
         # runs 'bundle install' and caches installed gems automatically
         bundler-cache: true
 
-    - name: Install Linguist
+    - name: Update PATH for bundled gems
       run: |
-        bundle exec github-linguist --version
+        echo 'export PATH=$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH' >> $GITHUB_ENV
+      shell: bash
+
+    - name: Check Linguist
+      run: |
+        github-linguist --version
       shell: bash
       
 #    - name: Install Linguist
