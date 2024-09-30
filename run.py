@@ -12,59 +12,6 @@ import requests
 new_data = False
 counter_limit = 15
 
-def main():
-
-    # This function will :
-    # Gather a list of GitHub repos from the GitHub API that have "Visual Basic" as their language (sorting by oldest)
-    # Clone each repo to a local directory
-    # Run the Linguist tool on the repo
-    # Output the results to a file
-
-    # Read the file and store the repos in a list
-    repos = []
-    with open('repos.txt') as file:
-        repos = file.readlines()
-
-    if not os.path.exists("repos"):
-        os.makedirs("repos")
-
-    # Clone each repo
-    for repo in repos['items']:
-        clone_repo(repo['clone_url'])
-
-    # Print that we are done cloning the repos
-    print("Done cloning repos")
-
-    os.chdir("..")
-
-    # Run Linguist on each repo (ie each directory in the repos directory)
-    # We need to go through each directory in the repos directory and save the paths to a list
-    # We need the folders inside the folder of the name of the author, so the 2nd level of directories
-
-    repos_list = []
-    for author in os.listdir("repos"):
-        for repo in os.listdir(f"repos/{author}"):
-            repos_list.append({"name": f"repos/{author}/{repo}"})
-
-    # Print the list of repos
-    print(repos_list)
-
-    return
-
-    with open('results.txt', 'w') as f:
-        for repo in repos_list:
-            print(f"Running Linguist on {repo['name']}")
-            linguist_output = run_linguist(repo['name'])
-            print(f"Linguist output: {linguist_output}")
-            slug = repo['name'].split('/')[1]+"/"+ repo['name'].split('/')[2]
-            f.write(f"Repo: {slug}\n")
-            f.write(f"Url: https://github.com/{slug}\n")
-            f.write(f"Language: {linguist_output}\n")
-            f.write("\n")
-
-    print("Done running Linguist")
-
-
 def create_repo_list(start_date, end_date):
 
     repos_content = ""
@@ -185,63 +132,8 @@ def create_repo_list(start_date, end_date):
     # Since the loop decrements the date, we don't need to decrement it further
     return current_date_dt.strftime("%Y-%m-%d")
         
-
 def get_year(date):
     return date.split('-')[0]
-
-def fill_missing_data_in_csv1():
-    # The repos.csv file is missing some data, so we need to fill it in
-    # Read the file once and store its contents
-    repos_content = ""
-    with open('repos.csv') as file:
-        repos_content = file.readlines()
-
-    linguist_version = subprocess.run(["github-linguist", "--version"], capture_output=True).stdout.decode('utf-8').strip()
-    language_determination_date = subprocess.run(["date"], capture_output=True).stdout.decode('utf-8').strip()
-
-    # If the language column (column 3) is missing, we need to add it
-    counter = 0
-    new_repos_content = []
-    for repo in repos_content:
-        counter += 1
-        if counter == counter_limit:
-            print("Reached the maximum number of repos for testing")
-
-        if len(repo.split(',')[2]) == 0 and counter < counter_limit :
-            # Run Linguist on the repo
-            print(f"Running Linguist on {repo.split(',')[0]}")
-
-            # Check if the repo is already cloned
-            if not os.path.exists("repos/"+repo.split(',')[0]):
-                cloning_status = clone_repo_from_slug(repo.split(',')[0])
-
-            linguist_output = run_linguist("repos/"+repo.split(',')[0])
-
-            # Add the language to the repo line in the csv
-            line = repo.split(',')
-            line[0] = line[0].strip()
-            line[1] = line[1].strip()
-            line[2] = linguist_output
-            line[3] = linguist_version
-            line[4] = convert_date_format(language_determination_date)
-
-            # Join the line back together, replacing None with an empty string
-            repo = ",".join("" if item is None else str(item) for item in line)
-        
-            #Add a new line character if it's not already the last character in repo
-            if repo[-1] != "\n":
-                repo += "\n"
-
-        #else:
-            # If the language is already determined, just print it
-            #print(f"Repo {repo.split(',')[0]} already has a language determined")
-        
-        new_repos_content.append(repo)
-
-
-    # Write the updated repos_content to the file
-    with open('repos.csv', 'w') as file:
-        file.write("".join(new_repos_content))
 
 def get_language(slug):
     #Check if the repo is already cloned
@@ -252,70 +144,6 @@ def get_language(slug):
             return None
 
     return run_linguist("repos/"+slug)
-
-def convert_date_format(date_str):
-    """
-    Convert a date from 'Sat Sep 28 21:47:10 UTC 2024' format to '2015-07-21T16:39:25Z' format.
-
-    Parameters:
-    date_str (str): The date string in the format 'Sat Sep 28 21:47:10 UTC 2024'.
-
-    Returns:
-    str: The date string in ISO 8601 format '2015-07-21T16:39:25Z'.
-    """
-    # Parse the input date string to a datetime object
-    dt = datetime.strptime(date_str, "%a %b %d %H:%M:%S %Z %Y")
-    # Convert the datetime object to the desired format
-    iso_format_date = dt.strftime("%Y-%m-%dT%H:%M:%SZ")
-    return iso_format_date
-
-def fill_missing_data_in_csv2():
-    # The repos.csv file is missing some data, so we need to fill it in
-    # Read the file once and store its contents
-    repos_content = ""
-    with open('repos.csv') as file:
-        repos_content = file.readlines()
-
-    linguist_version = subprocess.run(["github-linguist", "--version"], capture_output=True).stdout.decode('utf-8').strip()
-    language_determination_date = subprocess.run(["date"], capture_output=True).stdout.decode('utf-8').strip()
-
-    # If the language column (column 3) is missing, we need to add it
-    counter = 0
-
-    new_repos_content = []
-    for repo in repos_content:
-        counter += 1
-        if counter == counter_limit:
-            print("Reached the maximum number of repos for testing")
-
-        if len(repo.split(',')[1]) == 0 and counter < counter_limit :
-
-            # Get the last commit date of the repo
-            slug = repo.split(',')[0]
-            last_commit_date = get_latest_commit_date(slug)
-
-            # Add the language to the repo line in the csv
-            line = repo.split(',')
-            line[1] = last_commit_date
-
-            # Join the line back together, replacing None with an empty string
-            repo = ",".join("" if item is None else str(item) for item in line)
-
-            #Add a new line character if it's not already the last character in repo
-            if repo[-1] != "\n":
-                repo += "\n"
-        
-        #else:
-            # If the language is already determined, just print it
-            #print(f"Repo {repo.split(',')[0]} already has a language determined")
-        
-        new_repos_content.append(repo)
-
-
-    # Write the updated repos_content to the file
-    with open('repos.csv', 'w') as file:
-        file.write("".join(new_repos_content))
-            
 
 def clone_repo(clone_url):
     clone_repo_from_slug(url_to_slug(clone_url))
@@ -360,9 +188,8 @@ def url_to_slug(url):
 def slug_to_url(slug):
     return "https://github.com/"+slug
 
+# Run the Linguist tool on the repo
 def run_linguist(repo_name):
-    # Run the Linguist tool on the repo
-    # subprocess.run(["linguist", repo_name])
 
     #Use ghlinguist to run linguist on the repo (need to supply the full path not just the name)
     full_path = os.path.abspath(repo_name)
