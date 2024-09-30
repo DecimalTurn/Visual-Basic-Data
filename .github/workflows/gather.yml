@@ -45,7 +45,7 @@ jobs:
       run: |
         sudo gem install github-linguist
         sudo gem env
-        sudo gem which github-linguist
+        which github-linguist
       shell: bash
 
       
