@@ -320,14 +320,28 @@ if __name__ == "__main__":
         with open('date.txt', 'w') as file:
             print(f"Updating the next start date to {next_start_date}")
             file.write(next_start_date)
+        
+        # Update retries count in retries.txt
+        with open('retries.txt', 'w') as file:
+            file.write("0")
+
     elif new_data == False:
         print("No new data was added. Exiting")
-        create_github_issue(os.getenv('GITHUB_REPOSITORY'), "Issue with the data collection", "No new data was added", ["bug"])
 
-        # Change the value stored in disable.txt to True
-        with open('disable.txt', 'w') as file:
-            file.write("True")
+        # Increase the retries count in retries.txt
+        with open('retries.txt', 'r') as file:
+            retries = int(file.readline())
+            retries += 1
+
+        if retries == 3:
+            print("Retries exceeded. Disabling the program")
+            with open('disable.txt', 'w') as file:
+                file.write("True")
+            create_github_issue(os.getenv('GITHUB_REPOSITORY'), "Issue with the data collection", "No new data was added", ["bug"])
+            exit(1)
+        
         exit(0)
+
     else:
         print("New data was added, but we didn't process all the data for that day. Exiting")
         exit(0)
