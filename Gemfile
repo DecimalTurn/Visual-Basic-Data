@@ -1,4 +1,4 @@
 # Gemfile
 source 'https://rubygems.org'
 
-gem 'linguist'
+gem 'github-linguist'
