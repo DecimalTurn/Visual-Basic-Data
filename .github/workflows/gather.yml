@@ -36,6 +36,7 @@ jobs:
         cd vendor/bundle/ruby/3.3.0/bin
         ls
         export PATH="$PWD/vendor/bundle/ruby/3.3.0/bin:$PATH"
+        echo $PATH
         # echo 'export PATH=$PWD/vendor/bundle/ruby/3.3.0/bin:$PATH' >> $GITHUB_ENV
         github-linguist --version
       shell: bash
