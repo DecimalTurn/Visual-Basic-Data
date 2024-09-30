@@ -23,28 +23,29 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - uses: ruby/setup-ruby@v1
-      with:
-        # Not needed with a .ruby-version file
-        ruby-version: 3.3
-        # runs 'bundle install' and caches installed gems automatically
-        bundler-cache: true
+# Tentative to make caching gems
+#    - uses: ruby/setup-ruby@v1
+#      with:
+#        # Not needed with a .ruby-version file
+#        ruby-version: 3.3
+#        # runs 'bundle install' and caches installed gems automatically
+#        bundler-cache: true
 
-    - name: Update PATH for bundled gems
-      run: |
-        # echo 'export PATH=$PWD/vendor/bundle/ruby/3.3.0/bin:$PATH' >> $GITHUB_ENV
-        echo 'export PATH=$PWD/vendor/bundle/ruby/3.3.0/bin:$PATH'
-        echo $PATH
-        # github-linguist --version
-        bundle exec github-linguist --version
-        echo "alias github-linguist='bundle exec github-linguist'" >> ~/.bashrc && source ~/.bashrc
-      shell: bash
-      
-#    - name: Install Linguist
+#    - name: Update PATH for bundled gems
 #      run: |
-#        sudo gem install github-linguist
-#        sudo gem env
+#        # echo 'export PATH=$PWD/vendor/bundle/ruby/3.3.0/bin:$PATH' >> $GITHUB_ENV
+#        echo 'export PATH=$PWD/vendor/bundle/ruby/3.3.0/bin:$PATH'
+#        echo $PATH
+#        # github-linguist --version
+#        bundle exec github-linguist --version
+#        echo "alias github-linguist='bundle exec github-linguist'" >> ~/.bashrc && source ~/.bashrc
 #      shell: bash
+      
+    - name: Install Linguist
+      run: |
+        sudo gem install github-linguist
+        sudo gem env
+      shell: bash
 
       
     - name: Set up Python 3.10
