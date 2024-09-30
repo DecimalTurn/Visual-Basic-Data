@@ -32,6 +32,13 @@ jobs:
 
     - name: Update PATH for bundled gems
       run: |
+        echo pwd
+        cd vendor/bundle
+        ls
+        cd ruby
+        ls
+        cd 3.3.0
+        ls
         echo 'export PATH=$PWD/vendor/bundle/ruby/3.3.0/bin:$PATH' >> $GITHUB_ENV
       shell: bash
 
