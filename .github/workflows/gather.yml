@@ -37,6 +37,7 @@ jobs:
         echo $PATH
         # github-linguist --version
         bundle exec github-linguist --version
+        echo "alias github-linguist='bundle exec github-linguist'" >> ~/.bashrc && source ~/.bashrc
       shell: bash
       
 #    - name: Install Linguist
