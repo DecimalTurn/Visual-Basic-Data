@@ -85,6 +85,7 @@ def create_repo_list(start_date, end_date):
                         if latest_commit_date == "Unknown (repo deleted or no commits)":
                             lang = "N/A"
                         else:
+                            print(f"Analyzing {slug}")
                             lang = get_language(slug)
 
 
