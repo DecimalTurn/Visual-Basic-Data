@@ -20,27 +20,11 @@ jobs:
         git config --global core.eol lf
       shell: bash
       
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.4' # Specify the Ruby version you need
-
-    - name: Cache Ruby gems
-      id: cache-gems
-      uses: actions/cache@v3
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gem-
-
-    - name: Install dependencies
+    - name: Install Linguist
       run: |
-        gem install bundler
-        bundle install --path vendor/bundle
-
-    - name: Install linguist
-      run: gem install linguist
+        sudo gem install github-linguist
+        sudo gem env
+      shell: bash
     
     - name: Checkout
       uses: actions/checkout@v4
