@@ -32,7 +32,7 @@ jobs:
 
     - name: Install Linguist
       run: |
-        bundle exec linguist --version
+        bundle exec github-linguist --version
       shell: bash
       
 #    - name: Install Linguist
