@@ -331,6 +331,7 @@ if __name__ == "__main__":
         # Increase the retries count in retries.txt
         with open('retries.txt', 'r') as file:
             retries = int(file.readline())
+            print(f"🔴 This was retry number {retries}")
             retries += 1
 
         if retries == 3:
