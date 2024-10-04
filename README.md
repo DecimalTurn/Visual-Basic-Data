@@ -6,7 +6,7 @@
 
 On the 7th of December 2019, GitHub started making the difference between different flavors of Visual Basic (VB.Net, VB6, VBA and VBScript). Before that, any repo that would contain a specific flavor of Visual Basic would only get the blanket language label "Visual Basic".
 
-However, GitHub only changes the language associated to a repo when a commit is pushed to it. This means that all repos that haven't been pushed to since then will still have the old "Visual Basic" language label.
+However, GitHub only changes the language associated to a repo when a commit is pushed to it. This means that all repos that haven't been pushed to since that major update will still have the old "Visual Basic" language label.
 
 This is mainly a problem for projects that are trying to assess the popularity of each languages. They can't know what is the correct language from the GitHub API as they will likely get the old/stale language label. This can create bias in the data.
 
