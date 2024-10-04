@@ -57,8 +57,11 @@ for text in texts:
         text.set_y(text.get_position()[1] + 0.03)  # Adjust the y-position
 
 # Total estimate based on : https://github.com/search?q=lang%3Avbnet%20pushed%3A%3C2019-12-07&type=repositories
-plt.title(f'Updated data for "Visual Basic" repos\nthat were last updated before the major linguist update of Dec. 2019\n(Total: {total_count} / 50.4k)', color='white', fontweight='bold', loc='left')
-plt.savefig('./charts/2019.png', facecolor=fig.get_facecolor())
+title = plt.title(f'Updated data for "Visual Basic" repos\nlast updated before the gh-linguist update of Dec. 2019\n(Total: {total_count} / 50.4k)', color='white', fontweight='bold')
+title.set_y(title.get_position()[1] + 2)  # Adjust the y-position of the title
+
+plt.tight_layout()  # Adjust layout to make room for the title
+plt.savefig('./charts/2019.png', facecolor=fig.get_facecolor(), bbox_inches='tight')
 plt.show()
 
 
