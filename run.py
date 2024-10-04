@@ -7,7 +7,8 @@ import ghlinguist as ghl
 import requests
 from datetime import datetime, timedelta
 import requests
-
+# My scripts:
+import chart
 
 new_data = False
 counter_limit = 15
@@ -294,7 +295,7 @@ def create_github_issue(slug, title, body, labels=None):
 
 def update_chart():
     # Update the chart
-    subprocess.run(["python3", "chart.py"])
+    chart.main()
 
 if __name__ == "__main__":
 
