@@ -1,5 +1,7 @@
 # Visual-Basic-Repo-Data
 
+![2019 Language Chart](charts/2019.png)
+
 ## Context
 
 On the 7th of December 2019, GitHub started making the difference between different flavors of Visual Basic (VB.Net, VB6, VBA and VBScript). Before that, any repo that would contain a specific flavor of Visual Basic would only get the blanket language label "Visual Basic".
@@ -27,5 +29,3 @@ The columns definitions are the following:
 - language: Name of the language associated with that repo using modern tool to determine.
 - determination_tool: Name and version of the tool used to determine the language of the repo.
 - determination_date: When was the language determined.
-
-![2019 Language Chart](charts/2019.png)
