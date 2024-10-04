@@ -80,6 +80,7 @@ jobs:
         if [ -n "$(git diff --cached --exit-code)" ]; then
           echo "Changes detected"
           git add data/2019.csv
+          git add charts/
           commit_message=$(printf "Update data")
           git commit -m "$commit_message" 
           git push --set-upstream origin main
