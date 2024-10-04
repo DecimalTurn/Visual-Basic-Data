@@ -292,6 +292,10 @@ def create_github_issue(slug, title, body, labels=None):
         print(f"🔴 Failed to create issue. Status code: {response.status_code}")
         print(response.json())
 
+def update_chart():
+    # Update the chart
+    subprocess.run(["python3", "chart.py"])
+
 if __name__ == "__main__":
 
     # If the disable.txt file exists and contains the word "True", exit the program
@@ -324,6 +328,8 @@ if __name__ == "__main__":
         # Update retries count in retries.txt
         with open('retries.txt', 'w') as file:
             file.write("0")
+
+        update_chart()
 
     elif new_data == False:
         print("No new data was added. Exiting")
