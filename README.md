@@ -12,7 +12,7 @@ This is mainly a problem for projects that are trying to assess the popularity o
 
 ## Solution
 
-This repo is collecting data on all the repos that haven't been updated since 2019-12-07 and it include the specific language it is associated with using the same tool that GitHub normally uses to assess the language of a repo.
+This repo is collecting data on all the repos that haven't been updated since 2019-12-07 and it include the specific language it is associated with using the same tool that GitHub normally uses to assess the language of a repo (github-linguist).
 
 This way, it is possible for project preoccupied by language popularity to correct old data.
 
