@@ -56,7 +56,8 @@ for text in texts:
     if text.get_text().startswith('Other'):
         text.set_y(text.get_position()[1] + 0.03)  # Adjust the y-position
 
-plt.title(f'Updated data for "Visual Basic" repos \nthat were last updated in 2019 (Total: {total_count})', color='white', fontweight='bold')
+# Total estimate based on : https://github.com/search?q=lang%3Avbnet%20pushed%3A%3C2019-12-07&type=repositories
+plt.title(f'Updated data for "Visual Basic" repos\nthat were last updated before the major linguist update of Dec. 2019\n(Total: {total_count} / 50.4k)', color='white', fontweight='bold', loc='left')
 plt.savefig('./charts/2019.png', facecolor=fig.get_facecolor())
 plt.show()
 
