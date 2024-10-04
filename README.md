@@ -16,7 +16,7 @@ This way, it is possible for project preoccupied by language popularity to corre
 
 As of writting this, the collect is ongoing and should be completed in early 2025.
 
-## Data details
+## Data
 
 The data is supplied in the CSV format. All files are store in the `data` subdirectory and are separated by year. The entry for a repo will be in the CSV for the year it was last pushed to.
 
