@@ -75,12 +75,12 @@ jobs:
         git add data/ || echo "---"
         git add date.txt || echo "---"
         git add disable.txt || echo "---"
+        git add charts/ || echo "---"
 
         git status
         if [ -n "$(git diff --cached --exit-code)" ]; then
           echo "Changes detected"
-          git add data/2019.csv
-          git add charts/
+
           commit_message=$(printf "Update data")
           git commit -m "$commit_message" 
           git push --set-upstream origin main
