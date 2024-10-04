@@ -27,3 +27,5 @@ The columns definitions are the following:
 - language: Name of the language associated with that repo using modern tool to determine.
 - determination_tool: Name and version of the tool used to determine the language of the repo.
 - determination_date: When was the language determined.
+
+![2019 Language Chart](charts/2019.png)
