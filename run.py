@@ -336,11 +336,15 @@ if __name__ == "__main__":
         print("No new data was added. Exiting")
 
         # Increase the retries count in retries.txt
-        with open('retries.txt', 'r') as file:
-            retries = int(file.readline())
-            print(f"🔴 This was retry number {retries}")
+        retries = 0
+        with open('retries.txt', 'r+') as file:
+            retries = int(file.readline().strip())
+            print(f"This was retry number {retries}")
             retries += 1
-
+            file.seek(0)
+            file.write(str(retries))
+            file.truncate()
+        
         if retries == 3:
             print("Retries exceeded. Disabling the program")
             with open('disable.txt', 'w') as file:
