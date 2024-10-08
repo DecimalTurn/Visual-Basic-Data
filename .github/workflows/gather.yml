@@ -75,6 +75,7 @@ jobs:
         git add data/ || echo "---"
         git add date.txt || echo "---"
         git add disable.txt || echo "---"
+        git add retries.txt || echo "---"
         git add charts/ || echo "---"
 
         git status
