@@ -54,7 +54,7 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: "3.10"
-    - name: Install Python dependencies and run script
+    - name: Install Python dependencies
       run: |
         pip install -r requirements.txt
         git clone https://github.com/DecimalTurn/linguist-python.git --depth 1
@@ -62,10 +62,15 @@ jobs:
         # Make your code changes here
         pip install .
         cd ..
-        python run.py
       shell: bash
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Run Python script
+      run: |
+        python run.py
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
     - name: Push content
       run: |
         git config user.name "github-actions[bot]"
