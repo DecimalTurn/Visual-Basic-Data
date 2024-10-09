@@ -350,7 +350,7 @@ if __name__ == "__main__":
             with open('disable.txt', 'w') as file:
                 file.write("True")
             create_github_issue(os.getenv('GITHUB_REPOSITORY'), "Issue with the data collection", "No new data was added", ["bug"])
-            exit(1)
+            exit(0)
         
         exit(0)
 
