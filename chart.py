@@ -1,4 +1,4 @@
-# Take the data in the csv file (./data/2019.csv) and plot it on a pie chart
+# Take the data in the csv file (./data/data.csv) and plot it on a pie chart
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -8,7 +8,7 @@ def main():
     print("Chart is running")
 
     # Read the data from the csv file
-    data = pd.read_csv('./data/2019.csv')
+    data = pd.read_csv('./data/data.csv')
 
     # Read the languages.yml file
     with open('./charts/languages.yml', 'r') as file:
@@ -64,7 +64,7 @@ def main():
     title.set_y(title.get_position()[1] + 2)  # Adjust the y-position of the title
 
     plt.tight_layout()  # Adjust layout to make room for the title
-    plt.savefig('./charts/2019.png', facecolor=fig.get_facecolor(), bbox_inches='tight')
+    plt.savefig('./charts/chart.png', facecolor=fig.get_facecolor(), bbox_inches='tight')
     plt.show()
 
 

@@ -22,7 +22,7 @@ def create_repo_list(start_date, end_date):
     current_year = get_year(current_date)
 
     # Read the file once and store its contents
-    with open(f"data/{current_year}.csv") as file:
+    with open(f"data/data.csv") as file:
         repos_content = file.read()
 
     print(f"Start date: {start_date}")
