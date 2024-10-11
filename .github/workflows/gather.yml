@@ -41,13 +41,20 @@ jobs:
 #        echo "alias github-linguist='bundle exec github-linguist'" >> ~/.bashrc && source ~/.bashrc
 #      shell: bash
       
-    - name: Install Linguist
-      run: |
-        sudo gem install github-linguist
-        sudo gem env
-        # which github-linguist
-        # du -sh /usr/local/bin/
-      shell: bash
+    # - name: Install Linguist
+    #   run: |
+    #     sudo gem install github-linguist
+    #     sudo gem env
+    #     # which github-linguist
+    #     # du -sh /usr/local/bin/
+    #   shell: bash
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        # Not needed with a .ruby-version file
+        ruby-version: 3.2
+        # runs 'bundle install' and caches installed gems automatically
+        bundler-cache: true
 
       
     - name: Set up Python 3.10
