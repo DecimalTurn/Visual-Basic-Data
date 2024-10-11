@@ -67,7 +67,7 @@ def create_repo_list(start_date, end_date):
                 print("Reached the maximum number of pages")
                 exit(1)
 
-            linguist_version = subprocess.run(["github-linguist", "--version"], capture_output=True).stdout.decode('utf-8').strip()
+            linguist_version = subprocess.run(["bundle", "exec", "github-linguist", "--version"], capture_output=True).stdout.decode('utf-8').strip()
             date_now = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
             # Add the repos to a file
