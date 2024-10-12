@@ -71,7 +71,7 @@ def create_repo_list(start_date, end_date):
             date_now = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
             # Add the repos to a file
-            with open(f'data/{get_year(current_date)}.csv', 'a') as f:
+            with open(f'data/data.csv', 'a') as f:
                 for repo in repos['items']:
                     # Check if the repo is already in the file
                     slug = repo['clone_url'].split('/')[3]+"/"+ repo['clone_url'].split('/')[4].split('.')[0]
