@@ -14,7 +14,7 @@ This is mainly a problem for projects that are trying to assess the popularity o
 
 Note that the "Visual Basic" label was simply renamed to "Visual Basic .NET" in December 2019 which means that the new name appears in some places causing even more confusion.
 
-![image](https://github.com/user-attachments/assets/9d0be4c9-076b-4f0a-9ebc-4d5256dd987d)
+[![image](https://github.com/user-attachments/assets/9d0be4c9-076b-4f0a-9ebc-4d5256dd987d)](https://github.com/VBA-tools/VBA-Web)
 
 ## Solution
 
