@@ -12,6 +12,10 @@ However, for this change to take effect on a repo, a commit needs to be pushed t
 
 This is mainly a problem for projects that are trying to assess the popularity of each languages. They can't know what is the correct language from the GitHub API as they will likely get the old/stale language label. This can create bias in the data.
 
+Note that the "Visual Basic" label was simply renamed to "Visual Basic .NET" in December 2019 which means that the new name appears in some places causing even more confusion.
+
+![image](https://github.com/user-attachments/assets/9d0be4c9-076b-4f0a-9ebc-4d5256dd987d)
+
 ## Solution
 
 This repo is collecting data on all the repos that haven't been updated since 2019-12-07. It determines the specific language label for each repo using the same tool that GitHub normally uses to assess the language of a repo: [github-linguist](https://github.com/github-linguist/linguist).
