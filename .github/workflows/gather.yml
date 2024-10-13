@@ -23,24 +23,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-# Tentative to make caching gems
-#    - uses: ruby/setup-ruby@v1
-#      with:
-#        # Not needed with a .ruby-version file
-#        ruby-version: 3.3
-#        # runs 'bundle install' and caches installed gems automatically
-#        bundler-cache: true
-
-#    - name: Update PATH for bundled gems
-#      run: |
-#        # echo 'export PATH=$PWD/vendor/bundle/ruby/3.3.0/bin:$PATH' >> $GITHUB_ENV
-#        echo 'export PATH=$PWD/vendor/bundle/ruby/3.3.0/bin:$PATH'
-#        echo $PATH
-#        # github-linguist --version
-#        bundle exec github-linguist --version
-#        echo "alias github-linguist='bundle exec github-linguist'" >> ~/.bashrc && source ~/.bashrc
-#      shell: bash
-      
+    # Alternative approach to install github-linguist as a gem (with no caching)
     # - name: Install Linguist
     #   run: |
     #     sudo gem install github-linguist
@@ -49,7 +32,9 @@ jobs:
     #     # du -sh /usr/local/bin/
     #   shell: bash
 
-    - uses: ruby/setup-ruby@v1
+    # Install github-linguist (with caching)
+    - name: Setup Ruby and install github-linguist
+      uses: ruby/setup-ruby@v1
       with:
         # Not needed with a .ruby-version file
         ruby-version: 3.2
