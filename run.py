@@ -84,7 +84,7 @@ def create_repo_list(start_date, end_date):
                         
                         lang = None
                         if latest_commit_date == "Unknown (repo deleted or no commits)":
-                            lang = "N/A"
+                            lang = "Unknown"
                         else:
                             print(f"Analyzing {slug}")
                             lang = get_language(slug)
@@ -100,10 +100,9 @@ def create_repo_list(start_date, end_date):
                         line = [""] * 5
                         line[0] = slug
                         line[1] = latest_commit_date
-                        if latest_commit_date != "Unknown (repo deleted or no commits)":
-                            line[2] = lang
-                            line[3] = linguist_version
-                            line[4] = date_now
+                        line[2] = lang
+                        line[3] = linguist_version
+                        line[4] = date_now
 
                         # Join the line back together, replacing None with an empty string
                         new_line = ",".join("" if item is None else str(item) for item in line) 
