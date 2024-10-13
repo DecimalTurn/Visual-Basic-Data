@@ -12,7 +12,7 @@ However, for this change to take effect on a repo, a commit needs to be pushed t
 
 This is mainly a problem for projects that are trying to assess the popularity of each languages. They can't know what is the correct language from the GitHub API as they will likely get the old/stale language label. This can create bias in the data.
 
-Note that the "Visual Basic" label was simply renamed to "Visual Basic .NET" in December 2019 which means that the new name appears in some places causing even more confusion.
+Note that the "Visual Basic" label was simply renamed to "Visual Basic .NET" during the update which means that the new name appears in some places causing even more confusion.
 
 [![image](./img/Repo_page.png)](https://github.com/VBA-tools/VBA-Web)
 
