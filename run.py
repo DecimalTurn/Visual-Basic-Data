@@ -259,6 +259,9 @@ def get_latest_commit_date(repo_slug):
     elif response.status_code == 404:
         print(f"Repo {repo_slug} has no commits or was deleted")
         return None
+    elif response.status_code == 409:
+        print(f"Repo {repo_slug} is empty")
+        return None
     else:
         print(f"Failed to get the latest commit date for {repo_slug}")
         print(response.json())
