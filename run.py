@@ -344,7 +344,7 @@ if __name__ == "__main__":
             file.write(str(retries))
             file.truncate()
         
-        if retries == 3:
+        if retries == 5:
             print("Retries exceeded. Disabling the program")
             with open('disable.txt', 'w') as file:
                 file.write("True")
