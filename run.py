@@ -7,6 +7,9 @@ import ghlinguist as ghl
 import requests
 from datetime import datetime, timedelta
 import requests
+import traceback
+import errno
+
 # My scripts:
 import chart
 
@@ -156,29 +159,49 @@ def clone_repo(clone_url):
     clone_repo_from_slug(url_to_slug(clone_url))
 
 def clone_repo_from_slug(slug):
-
     # Check if we are in the repos directory
     if os.path.basename(os.getcwd()) != "repos":
         if not os.path.exists("repos"):
             os.makedirs("repos")
         os.chdir("repos")
 
-    #Create a directory with the name of the author
-    author = slug.split('/')[0]
-    repo_name = slug.split('/')[1]
+    # Create a directory with the name of the author
+    author, repo_name = slug.split('/')
     if not os.path.exists(author):
         os.makedirs(author)
     os.chdir(author)
-    
+
     status = ""
 
     # Clone the repo if it doesn't exist
     if not os.path.exists(repo_name):
         try:
-            subprocess.run(["git", "clone", "--depth", "1", slug_to_url(slug)])
+            subprocess.run(
+                ["git", "clone", "--depth", "1", slug_to_url(slug)],
+                check=True
+            )
             status = "Success"
-        except:
-            print(f"Failed to clone repo {slug}")
+        except subprocess.CalledProcessError as e:
+            print(f"Command '{e.cmd}' failed with exit status {e.returncode}.")
+            print(f"Error output:\n{e.stderr}")
+            status = "Failed"
+        except OSError as e:
+            print(f"OSError [Errno {e.errno}]: {e.strerror}")
+            print(f"File/Command: {e.filename}")
+            if e.errno == errno.EACCES:
+                print(f"Permission denied while accessing '{repo_name}'.")
+            elif e.errno == errno.ENOSPC:
+                print("No space left on the device.")
+            elif e.errno == errno.ENOENT:
+                print(f"Command not found: '{e.filename}'.")
+            else:
+                print("An unexpected OS error occurred.")
+            status = "Failed"
+        except Exception as e:
+            print(f"Failed to clone repo {slug}.")
+            print(f"Error: {e}")
+            print("Traceback:")
+            traceback.print_exc()
             status = "Failed"
 
     # Go back to the parent directory (repos)
@@ -188,6 +211,7 @@ def clone_repo_from_slug(slug):
     os.chdir("..")
 
     return status
+
 
 def url_to_slug(url):
     return url.split('/')[3]+"/"+ url.split('/')[4].split('.')[0]
