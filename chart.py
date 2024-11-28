@@ -48,8 +48,8 @@ def main():
     # Set text properties
     textprops = {'color': 'white', 'fontweight': 'bold'}
 
-    # Create labels with percentage for entries less than 2%
-    labels = [f'{lang} ({pct:.1f}%)' if pct < 2 else lang for lang, pct in zip(language_counts.index, 100 * language_counts / total_count)]
+    # Create labels with percentage for entries less than 2% or if the language is "Other"
+    labels = [f'{lang} ({pct:.1f}%)' if pct < 2 or lang == "Other" else lang for lang, pct in zip(language_counts.index, 100 * language_counts / total_count)]
 
     # Create the pie chart
     wedges, texts, autotexts = ax.pie(language_counts, labels=labels, autopct=custom_autopct, colors=colors, textprops=textprops)
