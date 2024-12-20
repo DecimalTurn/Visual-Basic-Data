@@ -27,7 +27,7 @@ def main():
     total_count = language_counts.sum()
 
     # Group languages with a frequency less than 0.5% into an "Other" category
-    threshold = 0.006 * total_count
+    threshold = 0.007 * total_count
     other_count = language_counts[language_counts < threshold].sum()
     language_counts = language_counts[language_counts >= threshold]
     language_counts['Other'] = other_count
