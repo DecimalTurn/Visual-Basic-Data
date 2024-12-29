@@ -15,6 +15,7 @@ import chart
 
 new_data = False
 counter_limit = 15
+retries_limit = 7
 
 def create_repo_list(start_date, end_date):
     
@@ -371,7 +372,7 @@ if __name__ == "__main__":
             file.write(str(retries))
             file.truncate()
         
-        if retries == 5:
+        if retries == retries_limit:
             print("Retries exceeded. Disabling the program")
             with open('disable.txt', 'w') as file:
                 file.write("True")
