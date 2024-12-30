@@ -15,7 +15,7 @@ import chart
 
 new_data = False
 counter_limit = 15
-retries_limit = 7
+retries_limit = 8
 
 def create_repo_list(start_date, end_date):
     
