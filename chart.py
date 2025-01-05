@@ -54,10 +54,13 @@ def main():
     # Create the pie chart
     wedges, texts, autotexts = ax.pie(language_counts, labels=labels, autopct=custom_autopct, colors=colors, textprops=textprops)
 
-    # Move the "Other" label up by a few pixels
+    # Move the "Other" and "C#" label up by a few pixels
     for text in texts:
         if text.get_text().startswith('Other'):
+            text.set_y(text.get_position()[1] + 0.05)  # Adjust the y-position
+        if text.get_text().startswith('C#'):
             text.set_y(text.get_position()[1] + 0.03)  # Adjust the y-position
+
 
     # Total estimate based on : https://github.com/search?q=lang%3Avbnet%20pushed%3A%3C2019-12-07&type=repositories
     title = plt.title(f'"Visual Basic" repos last pushed to before\n the github-linguist update of Dec. 2019\n(Analyzed: {total_count} / 50.4k)', color='white', fontweight='bold')
