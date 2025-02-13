@@ -23,7 +23,6 @@ def create_repo_list(start_date, end_date):
     repos_content = ""
 
     current_date = start_date
-    current_year = get_year(current_date)
 
     # Read the file once and store its contents
     with open(f"data/data.csv") as file:
@@ -143,9 +142,6 @@ def create_repo_list(start_date, end_date):
     # Since the loop decrements the date, we don't need to decrement it further
     return current_date_dt.strftime("%Y-%m-%d")
         
-def get_year(date):
-    return date.split('-')[0]
-
 def get_language(slug):
     #Check if the repo is already cloned
     if not os.path.exists("repos/"+slug):
@@ -334,7 +330,7 @@ if __name__ == "__main__":
                 exit(0)
 
     # Span days to look at (0 means only one day)
-    span = 0
+    span = 1  # Change span to 1 to look at 2 days at a time
 
     # Read the start date from date.txt
     start_date = ""
@@ -385,4 +381,4 @@ if __name__ == "__main__":
         print("New data was added, but we didn't process all the data for that day. Exiting")
         exit(0)
 
-    
+
