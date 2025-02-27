@@ -330,7 +330,7 @@ if __name__ == "__main__":
                 exit(0)
 
     # Span days to look at (0 means only one day)
-    span = 2  # Change span to 1 to look at 2 days at a time
+    span = 4  # Change span to 1 to look at 2 days at a time
 
     # Read the start date from date.txt
     start_date = ""
