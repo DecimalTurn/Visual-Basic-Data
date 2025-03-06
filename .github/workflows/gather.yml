@@ -1,7 +1,7 @@
 name: Gather-Data
 
 on:
-  schedule:
+  # schedule:
   #  - cron: '0 * * * *'
   workflow_dispatch:
 
