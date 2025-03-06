@@ -63,7 +63,7 @@ def main():
 
 
     # Total estimate based on : https://github.com/search?q=lang%3Avbnet%20pushed%3A%3C2019-12-07&type=repositories
-    title = plt.title(f'"Visual Basic" repos last pushed to before\n the github-linguist update of Dec. 2019\n(Analyzed: {total_count} / 50.4k)', color='white', fontweight='bold')
+    title = plt.title(f'"Visual Basic" repos last pushed to before\n the github-linguist update of Dec. 2019\n(Analyzed: {total_count} repos)', color='white', fontweight='bold')
     title.set_y(title.get_position()[1] + 2)  # Adjust the y-position of the title
 
     plt.tight_layout()  # Adjust layout to make room for the title
