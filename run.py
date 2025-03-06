@@ -50,7 +50,7 @@ def create_repo_list(start_date, end_date):
 
         page = 1
         while True:
-            repos = search_github_repos(f"lang:vbnet pushed:<{current_date}", sort="updated", order="asc", per_page=100, page=page)
+            repos = search_github_repos(f"lang:vbnet pushed:<={current_date}", sort="updated", order="asc", per_page=100, page=page)
 
             #Debugging: Write the response to a file by converting it to a json string
             # with open('repos.json', 'a') as f:
