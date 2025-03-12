@@ -24,7 +24,7 @@ This way, it is possible for project preoccupied by language popularity to corre
 
 ## Data
 
-The data is supplied in the CSV format.
+The [data](https://github.com/DecimalTurn/Visual-Basic-Data/blob/main/data/data.csv) is supplied in the CSV format.
 The columns definitions are the following:
 
 - slug: Author_Name/Repo_Name
