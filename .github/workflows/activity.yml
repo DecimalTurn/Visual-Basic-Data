@@ -6,7 +6,7 @@ on:
   workflow_dispatch:     # Optional: allows manual triggering
 
 jobs:
-  run-keepalive:
+  run-activity:
     runs-on: ubuntu-latest
 
     steps:
