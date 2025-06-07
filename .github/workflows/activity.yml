@@ -1,0 +1,34 @@
+name: Monthly Activity
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'  # Runs at 00:00 on the 1st of every month (UTC)
+  workflow_dispatch:     # Optional: allows manual triggering
+
+jobs:
+  run-keepalive:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install Git (if needed)
+        run: sudo apt-get update && sudo apt-get install git -y
+
+      - name: Configure Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run GitHub activity script
+        run: python github_activity.py
+
+      - name: Push changes
+        run: |
+          git push origin
